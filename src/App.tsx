@@ -8,12 +8,17 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Get basename for GitHub Pages deployment
+const basename = import.meta.env.PROD && window.location.pathname !== '/' 
+  ? window.location.pathname.split('/')[1] 
+  : '';
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename={basename ? `/${basename}` : undefined}>
         <Routes>
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
